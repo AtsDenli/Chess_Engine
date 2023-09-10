@@ -44,3 +44,5 @@ def main():
              [None, None, None, None, None, None, None, None],
              [WP1, WP2, WP3, WP4, WP5, WP6, WP7, WP8],
              [WR1, WH1, WB1, WQ, WK, WB2, WH2, WR2]]
+    
+    
