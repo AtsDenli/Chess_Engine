@@ -1,4 +1,4 @@
-
+#These are the piece tables for each of the pieces. They are a part of the evaluation of the board.
 
 def WPawn():
     return [

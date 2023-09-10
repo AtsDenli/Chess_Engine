@@ -1,5 +1,6 @@
 import pygame
 import pieces
+import tables
 
 def main():
     BP1 = pieces.Pawn(0, (1,0))
@@ -45,4 +46,16 @@ def main():
              [WP1, WP2, WP3, WP4, WP5, WP6, WP7, WP8],
              [WR1, WH1, WB1, WQ, WK, WB2, WH2, WR2]]
     
+    gameState = 0
+
+    colourRaw = input("Do you want to be black or white?")
+    while colourRaw != "black" and colourRaw != "white":
+        colourRaw = input("Thats not valid, please write black or white")
     
+    if colourRaw == "black":
+        colour = 1
+    else:
+        colour = 0
+
+    while not gameState:
+        
