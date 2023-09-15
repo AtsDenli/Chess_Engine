@@ -1,6 +1,6 @@
 import pygame
 import pieces
-import tables
+import PieceTables
 
 def main():
     BP1 = pieces.Pawn(0, (1,0))
@@ -57,5 +57,9 @@ def main():
     else:
         colour = 0
 
+    gameMoves = []
+
     while not gameState:
-        
+        if colour == 1:
+            currentMove = input("Please input your move {source square}-{destination square}")
+            gameMoves.append(currentMove.split('-')[1])
