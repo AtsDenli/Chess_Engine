@@ -1,6 +1,7 @@
 import pygame
 import pieces
 import PieceTables
+import search_util
 
 def main():
     BP1 = pieces.Pawn(0, (1,0))
@@ -63,3 +64,52 @@ def main():
         if colour == 1:
             currentMove = input("Please input your move {source square}-{destination square}")
             gameMoves.append(currentMove.split('-')[1])
+
+
+def evaluate(board):
+    BEval = 0
+    WEval = 0
+    for i in range(7):
+        for j in range(7):
+            piece = board[i][j]
+            #Evaluates material
+            if piece != None:
+                if piece.colour == 0:
+                    BEval += piece.points
+                else:
+                    WEval += piece.points
+
+                #Evauluates Piece square tables
+                match piece.points:
+                    case 1:
+                        if piece.colour == 0:
+                            WEval += PieceTables.WPawn()[i][j]
+                        else:
+                            BEval += PieceTables.BPawn()[i][j]
+                    case 3:
+                        if piece.colour == 0:
+                            WEval += PieceTables.WHorse()[i][j]
+                        else:
+                            BEval += PieceTables.BHorse()[i][j]
+                    case 3.5:
+                        if piece.colour == 0:
+                            WEval += PieceTables.WBishop()[i][j]
+                        else:
+                            BEval += PieceTables.BBishop()[i][j]
+                    case 5:
+                        if piece.colour == 0:
+                            WEval += PieceTables.WRook()[i][j]
+                        else:
+                            BEval += PieceTables.BRook()[i][j]
+                    case 9:
+                        if piece.colour == 0:
+                            WEval += PieceTables.WQueen()[i][j]
+                        else:
+                            BEval += PieceTables.BQueen()[i][j]
+                    case 10000:
+                        if piece.colour == 0:
+                            WEval += PieceTables.WKing()[i][j]
+                        else:
+                            BEval += PieceTables.BKing()[i][j]
+
+main()

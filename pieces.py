@@ -4,6 +4,7 @@ class Pawn:
         self.pos = position
         self.active = True
         self.board = board
+        self.points = 1
     
     def Taken(self):
         self.active = False
@@ -27,6 +28,8 @@ class Horse:
         self.colour = colour
         self.pos = position
         self.active = True
+        self.board = board
+        self.points = 3
 
     def Taken(self):
         self.active = False
@@ -64,6 +67,8 @@ class Bishop:
         self.colour = colour
         self.pos = position
         self.active = True
+        self.board = board
+        self.points = 3.5
 
     def Taken(self):
         self.active = False
@@ -118,6 +123,8 @@ class Rook:
         self.colour = colour
         self.pos = position
         self.active = True
+        self.board = board
+        self.points=  5
 
     def Taken(self):
         self.active = False
@@ -163,6 +170,8 @@ class Queen:
         self.colour = colour
         self.pos = position
         self.active = True
+        self.board = board
+        self.points = 9
 
     def Taken(self):
         self.active = False
@@ -204,7 +213,7 @@ class Queen:
         for i in range(1,10):
             try:
                 if self.board[self.pos[0]-i][self.pos[1]+i] == None:
-                    moves.appen((self.pos[0]-1,self.pos[1]+i))
+                    moves.append((self.pos[0]-1,self.pos[1]+i))
                 else:
                     break
             except IndexError:
@@ -213,7 +222,7 @@ class Queen:
         for i in range(1,10):
             try:
                 if self.board[self.pos[0]-i][self.pos[1]-i] == None:
-                    moves.appen((self.pos[0]-1,self.pos[1]+i))
+                    moves.append((self.pos[0]-1,self.pos[1]+i))
                 else:
                     break
             except IndexError:
@@ -222,7 +231,7 @@ class Queen:
         for i in range(1,10):
             try:
                 if self.board[self.pos[0]+i][self.pos[1]+i] == None:
-                    moves.appen((self.pos[0]-1,self.pos[1]+i))
+                    moves.append((self.pos[0]-1,self.pos[1]+i))
                 else:
                     break
             except IndexError:
@@ -231,7 +240,7 @@ class Queen:
         for i in range(1,10):
             try:
                 if self.board[self.pos[0]+i][self.pos[1]-i] == None:
-                    moves.appen((self.pos[0]-1,self.pos[1]+i))
+                    moves.append((self.pos[0]-1,self.pos[1]+i))
                 else:
                     break
             except IndexError:
@@ -245,6 +254,8 @@ class King:
         self.colour = colour
         self.pos = position
         self.active = True
+        self.board = board
+        self.points = 10000
 
     def Taken(self):
         self.active = False
