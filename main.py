@@ -73,8 +73,8 @@ def main():
 def evaluate(board):
     BEval = 0
     WEval = 0
-    for i in range(7):
-        for j in range(7):
+    for i in range(8):
+        for j in range(8):
             piece = board[i][j]
             #Evaluates material
             if piece != None:
@@ -116,9 +116,37 @@ def evaluate(board):
                         else:
                             BEval += PieceTables.BKing()[i][j]
 
-    #Evaluating King safety
-    for i in range(2):
-        surroundings = []
-        pos = WK.pos
+    #Evaluating White King safety
+    surroundings = []
+    potAtts = []
+    pos = WK.pos
+    for move in WK.FindMoves():
+        surroundings.append(move)
+    for row in board(8):
+        for square in row:
+            if square != None:
+                if square.colour == 1:
+                    for move in square.findMoves():
+                        potAtts.append(move)
+    
+        for move in potAtts:
+            if move in surroundings:
+                Weval -= 1
 
+    surroundings1 = []
+    potAtts1 = []
+    pos = BK.pos
+    for move in BK.FindMoves():
+        surroundings.append(move)
+    for row in board(8):
+        for square in row:
+            if square != None:
+                if square.colour == 0:
+                    for move in square.findMoves():
+                        potAtts.append(move)
+    
+        for move in potAtts:
+            if move in surroundings:
+                Beval -= 1
+    
 main()
