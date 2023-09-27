@@ -1,6 +1,6 @@
 import pieces
 import PieceTables
-import search_util
+import search_util as SU
 
 def main():
 
@@ -137,16 +137,31 @@ def evaluate(board):
     potAtts1 = []
     pos = BK.pos
     for move in BK.FindMoves():
-        surroundings.append(move)
+        surroundings1.append(move)
     for row in board(8):
         for square in row:
             if square != None:
                 if square.colour == 0:
                     for move in square.findMoves():
-                        potAtts.append(move)
-    
-        for move in potAtts:
-            if move in surroundings:
+                        potAtts1.append(move)
+        for move in potAtts1:
+            if move in surroundings1:
                 Beval -= 1
+    return (WEval, BEval)
     
+
+def search(board):
+    #Automatic max depth of 10 moves
+    boards = SU.QueueFrontier()
+    explored = set()
+    while True:
+        if not explored:
+            exploring = SU.Node(board, None, None)
+        else:
+            exploring = SU.Node(state=boards.get(0,0,1), parent=boards.get(0,1), action=None)
+            boards.remove()
+        exploring.WEval = evaluate[0]
+        exploring.BEval = evaluate[1]
+
+
 main()
