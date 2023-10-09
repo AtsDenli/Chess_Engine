@@ -160,8 +160,14 @@ def search(board):
         else:
             exploring = SU.Node(state=boards.get(0,0,1), parent=boards.get(0,1), action=None)
             boards.remove()
-        exploring.WEval = evaluate[0]
-        exploring.BEval = evaluate[1]
+        evals = evaluate(board)
+        exploring.WEval = evals[0]
+        exploring.BEval = evals[1]
+        newMoves = {}
+        for row in board:
+            for square in row:
+                if square != None:
+                    
 
 
 main()
