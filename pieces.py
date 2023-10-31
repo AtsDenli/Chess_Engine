@@ -256,6 +256,7 @@ class King:
         self.active = True
         self.board = board
         self.points = 10000
+        self.hasMoved = False
 
     def Taken(self):
         self.active = False

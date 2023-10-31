@@ -1,6 +1,7 @@
 import pieces
 import PieceTables
 import search_util as SU
+import notation as no
 
 def main():
 
@@ -51,123 +52,15 @@ def main():
     WQ = pieces.Queen(1, (7,3),board)
     WK = pieces.King(1, (7,4),board)
     
+    # A record of all the moves played
+    record = []
     gameState = 0
 
-    colourRaw = input("Do you want to be black or white?")
-    while colourRaw != "black" and colourRaw != "white":
-        colourRaw = input("Thats not valid, please write black or white")
-    
-    if colourRaw == "black":
-        colour = 1
-    else:
-        colour = 0
-
-    gameMoves = []
-
     while not gameState:
-        if colour == 1:
-            currentMove = input("Please input your move {source square}-{destination square}")
-            gameMoves.append(currentMove.split('-')[1])
-
-
-def evaluate(board):
-    BEval = 0
-    WEval = 0
-    for i in range(8):
-        for j in range(8):
-            piece = board[i][j]
-            #Evaluates material
-            if piece != None:
-                if piece.colour == 0:
-                    BEval += piece.points
-                else:
-                    WEval += piece.points
-
-                #Evauluates Piece square tables
-                match piece.points:
-                    case 1:
-                        if piece.colour == 0:
-                            WEval += PieceTables.WPawn()[i][j]
-                        else:
-                            BEval += PieceTables.BPawn()[i][j]
-                    case 3:
-                        if piece.colour == 0:
-                            WEval += PieceTables.WHorse()[i][j]
-                        else:
-                            BEval += PieceTables.BHorse()[i][j]
-                    case 3.5:
-                        if piece.colour == 0:
-                            WEval += PieceTables.WBishop()[i][j]
-                        else:
-                            BEval += PieceTables.BBishop()[i][j]
-                    case 5:
-                        if piece.colour == 0:
-                            WEval += PieceTables.WRook()[i][j]
-                        else:
-                            BEval += PieceTables.BRook()[i][j]
-                    case 9:
-                        if piece.colour == 0:
-                            WEval += PieceTables.WQueen()[i][j]
-                        else:
-                            BEval += PieceTables.BQueen()[i][j]
-                    case 10000:
-                        if piece.colour == 0:
-                            WEval += PieceTables.WKing()[i][j]
-                        else:
-                            BEval += PieceTables.BKing()[i][j]
-
-    #Evaluating White King safety
-    surroundings = []
-    potAtts = []
-    pos = WK.pos
-    for move in WK.FindMoves():
-        surroundings.append(move)
-    for row in board(8):
-        for square in row:
-            if square != None:
-                if square.colour == 1:
-                    for move in square.findMoves():
-                        potAtts.append(move)
-    
-        for move in potAtts:
-            if move in surroundings:
-                Weval -= 1
-
-    surroundings1 = []
-    potAtts1 = []
-    pos = BK.pos
-    for move in BK.FindMoves():
-        surroundings1.append(move)
-    for row in board(8):
-        for square in row:
-            if square != None:
-                if square.colour == 0:
-                    for move in square.findMoves():
-                        potAtts1.append(move)
-        for move in potAtts1:
-            if move in surroundings1:
-                Beval -= 1
-    return (WEval, BEval)
-    
-
-def search(board):
-    #Automatic max depth of 10 moves
-    boards = SU.QueueFrontier()
-    explored = set()
-    while True:
-        if not explored:
-            exploring = SU.Node(board, None, None)
-        else:
-            exploring = SU.Node(state=boards.get(0,0,1), parent=boards.get(0,1), action=None)
-            boards.remove()
-        evals = evaluate(board)
-        exploring.WEval = evals[0]
-        exploring.BEval = evals[1]
-        newMoves = {}
-        for row in board:
-            for square in row:
-                if square != None:
-                    
-
-
-main()
+        currentMove = input("Enter your move {current position}-{new position}")
+        startingPos, endingPos = currentMove.split('-')[0], currentMove.split('-')[1]
+        startCoords = no.fromNotation(startingPos)
+        endCoords = no.fromNotation(endingPos)
+        if endCoords in board[startCoords[0], startCoords[1]].FindMoves():
+            board[endCoords[0], endCoords[1]] = board[startCoords[0], startCoords[1]]
+            record.append(currentMove)

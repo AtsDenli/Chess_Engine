@@ -3,12 +3,7 @@ class Node():
         self.state = state
         self.parent = parent
         self.action = action
-        self.WEval 
-        self.BEval 
-    def getMoves():
         
-
-
 class StackFrontier():
     def __init__(self):
         self.frontier = []
