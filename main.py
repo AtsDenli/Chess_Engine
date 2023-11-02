@@ -63,4 +63,6 @@ def main():
         endCoords = no.fromNotation(endingPos)
         if endCoords in board[startCoords[0], startCoords[1]].FindMoves():
             board[endCoords[0], endCoords[1]] = board[startCoords[0], startCoords[1]]
+            board[startCoords[0],startCoords[1]] = None
             record.append(currentMove)
+        # Now the computer plays its moves
