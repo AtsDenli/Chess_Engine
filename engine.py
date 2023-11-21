@@ -1,16 +1,10 @@
-import PieceTables as PT
-import search_util as SU
-import notation as NO
+import torch
+import re
 
-def eval(board):
-    WEval = 0
-    BEval = 0
-    for row in board:
-        for piece in row:
-            if piece.active:
-                WEval += piece.points if piece.colour == 1 else 0
-                BEval += piece.points if piece.colour == 0 else 0
+letter2Num = {'a':0, 'b':1, 'c':2, 'd':3, 'e':4, 'f':5, 'g':6, 'h':7}
+num2Letter = {0:'a', 1:'b', 2:'c', 3:'d', 4:'e', 5:'f', 6:'g', 7:'h'}
 
-
-def search():
-    pass
+def PNG2Text(game):
+    moves = []
+    re.sub("[i-z]", '', game)
+    re.sub
