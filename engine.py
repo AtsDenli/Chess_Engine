@@ -1,4 +1,9 @@
 import torch
+from torch.utils.data import Dataset, DataLoader
+import torch.autograd as AG
+from torch import Tensor
+import torch.nn as nn
+import torch.optim as optim
 import re
 import numpy as np
 import chess
@@ -18,6 +23,7 @@ def PNG2Text(game, position):
         board.push_san(move[0])
         if move[1]:
             board.push_san(move[1])
+    return board
 
 def Text2Stack(board):
     arraySize = (8,8)
