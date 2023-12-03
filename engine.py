@@ -8,9 +8,9 @@ import re
 import numpy as np
 import chess
 import pandas as pd
+import random
+import csv
 
-letter2Num = {'a':0, 'b':1, 'c':2, 'd':3, 'e':4, 'f':5, 'g':6, 'h':7}
-num2Letter = {0:'a', 1:'b', 2:'c', 3:'d', 4:'e', 5:'f', 6:'g', 7:'h'}
 board = chess.Board()
 
 def PNG2Text(game, position):
@@ -50,6 +50,7 @@ def moveMatrix(board, move):
     board.push_san(move)
     stack2 = Text2Stack(board)
     outputBoard = stack2[k]
+    return (initialBoard, outputBoard)
 
 def Text2Stack(board):
     arraySize = (8,8)
@@ -77,12 +78,20 @@ def Text2Stack(board):
     return np.stack((pawn,knight,bishop,rook,queen,king))    
 
 class ChessDataset(Dataset):
-    def __init__(self,games):
+    def __init__(self):
         super(ChessDataset,self).__init__()
-        self.games = games
+        self.games = []
+        with open("chess_games_edit.csv", "r") as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                self.games.append(row["AN"])
+
 
     def __len__(self):
-        return 100_000
+        return 1_248_430
     
-    def __getitem__(self, index):
-        pass #TODO
+    def __getitem__(self):
+        noOfGames = 1248430
+        index = random.randint(0,noOfGames)
+        randGame = self.games[index]
+        randGameMoves = randGame.split()
