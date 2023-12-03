@@ -7,7 +7,6 @@ import torch.optim as optim
 import re
 import numpy as np
 import chess
-import pandas as pd
 import random
 import csv
 
