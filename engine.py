@@ -51,7 +51,7 @@ def moveMatrix(board, move):
     outputBoard = stack2[k]
     return (initialBoard, outputBoard)
 
-def Text2Stack(board):
+def Text2Stack(board,flip=1):
     arraySize = (8,8)
     pawn = np.zeros(arraySize, dtype=int)
     knight = np.zeros(arraySize, dtype=int)
@@ -74,7 +74,7 @@ def Text2Stack(board):
             elif board[i][j].lower() == 'k':
                 king[i][j] = 1 if board[i][j] == 'K' else -1
 
-    return np.stack((pawn,knight,bishop,rook,queen,king))    
+    return np.stack((pawn,knight,bishop,rook,queen,king)) if flip == 1 else np.stack((flip(pawn), flip(knight), flip(bishop), flip(rook), flip(queen), flip(king)))
 
 class ChessDataset(Dataset):
     def __init__(self):
@@ -93,4 +93,11 @@ class ChessDataset(Dataset):
         noOfGames = 1248430
         index = random.randint(0,noOfGames)
         randGame = self.games[index]
-        randGameMoves = randGame.split()
+        randGameIndex = random.randint(0,len(randGame)-1)
+        randGameMoves = randGame[:randGameIndex]
+        if len(randGameMoves) % 2 == 0:
+            board = Text2Stack(PNG2Text(randGameMoves),-1)
+        else:
+            board = Text2Stack(PNG2Text(randGameMoves))
+        nextMove = moveMatrix(board, randGame[randGameIndex+1])
+        return board, nextMove
