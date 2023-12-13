@@ -12,6 +12,12 @@ import csv
 
 board = chess.Board()
 
+chessGames = []
+with open("chess_games_edit.csv", "r") as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                chessGames.append(row["AN"])
+
 def PNG2Text(game, position):
     moves = []
     re.sub("[i-z]", '', game)
@@ -77,15 +83,10 @@ def Text2Stack(board,flip=1):
     return np.stack((pawn,knight,bishop,rook,queen,king)) if flip == 1 else np.stack((flip(pawn), flip(knight), flip(bishop), flip(rook), flip(queen), flip(king)))
 
 class ChessDataset(Dataset):
-    def __init__(self):
+    def __init__(self,games):
         super(ChessDataset,self).__init__()
-        self.games = []
-        with open("chess_games_edit.csv", "r") as file:
-            reader = csv.DictReader(file)
-            for row in reader:
-                self.games.append(row["AN"])
-
-
+        self.games = games
+        
     def __len__(self):
         return 1_248_430
     
@@ -101,3 +102,6 @@ class ChessDataset(Dataset):
             board = Text2Stack(PNG2Text(randGameMoves))
         nextMove = moveMatrix(board, randGame[randGameIndex+1])
         return board, nextMove
+    
+data_train = ChessDataset(chessGames)
+data_train_loader = DataLoader(data_train, batch_size=32, shuffle=True, drop_last=True)
