@@ -13,6 +13,9 @@ with open("chess_games_edit.csv", "r") as file:
             reader = csv.DictReader(file)
             for row in reader:
                 chessGames.append(row["AN"])
+
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
 class ChessDataset(Dataset):
     def __init__(self,games):
         super(ChessDataset,self).__init__()
@@ -36,3 +39,10 @@ class ChessDataset(Dataset):
     
 data_train = ChessDataset(chessGames)
 data_train_loader = DataLoader(data_train, batch_size=32, shuffle=True, drop_last=True)
+
+class NeuralNetwork(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward():
+        pass
