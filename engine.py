@@ -22,7 +22,7 @@ class ChessDataset(Dataset):
         self.games = games
         
     def __len__(self):
-        return 1_248_430
+        return 200_000
     
     def __getitem__(self):
         noOfGames = 1248430
@@ -43,6 +43,25 @@ data_train_loader = DataLoader(data_train, batch_size=32, shuffle=True, drop_las
 class NeuralNetwork(nn.Module):
     def __init__(self):
         super().__init__()
+        self.model = nn.Sequential(
+             nn.Conv2d(6, 200, 3, 1, 1),
+             nn.Conv2d(200,200,3,1,1),
+             nn.SELU(),
+             nn.Conv2d(200,200,3,1,1),
+             nn.SELU(),
+             nn.Conv2d(200,200,3,1,1),
+             nn.SELU(),
+             nn.Conv2d(200,200,3,1,1),
+             nn.SELU(),
+             nn.Conv2d(200,200,3,1,1),
+             nn.SELU(),
+             nn.Conv2d(200,200,3,1,1),
+             nn.SELU(),
+             nn.Conv2d(200,200,3,1,1),
+             nn.SELU(),
+             nn.Flatten()
+        )
 
-    def forward():
-        pass
+
+    def forward(self, x):
+        return self.model(x)
