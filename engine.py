@@ -65,3 +65,23 @@ class NeuralNetwork(nn.Module):
 
     def forward(self, x):
         return self.model(x)
+
+network = NeuralNetwork().to(device)
+loss_fn = nn.CrossEntropyLoss()
+optimiser = optim.Adam(network.parameters(),lr=1e-4)
+
+if __name__ == "main":
+     for epoch in range(8):
+          for group in data_train_loader:
+               X, y = group
+               X = X.to(device)
+               y = y.to(device)
+               prediction = network(X)
+               loss = loss_fn(prediction, y)
+
+               #backprop
+               optimiser.zero_grad()
+               loss.backward()
+               optimiser.step()
+
+               print(f"Epoch {epoch} complete with loss {loss}")
