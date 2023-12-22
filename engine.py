@@ -1,7 +1,6 @@
+from torch import save, load
 import torch
 from torch.utils.data import Dataset, DataLoader
-import torch.autograd as AG
-from torch import Tensor
 import torch.nn as nn
 import torch.optim as optim
 import random
@@ -71,17 +70,19 @@ loss_fn = nn.CrossEntropyLoss()
 optimiser = optim.Adam(network.parameters(),lr=1e-4)
 
 if __name__ == "main":
-     for epoch in range(8):
-          for group in data_train_loader:
-               X, y = group
-               X = X.to(device)
-               y = y.to(device)
-               prediction = network(X)
-               loss = loss_fn(prediction, y)
+    for epoch in range(8):
+         for group in data_train_loader:
+              X, y = group
+              X = X.to(device)
+              y = y.to(device)
+              prediction = network(X)
+              loss = loss_fn(prediction, y)
 
                #backprop
-               optimiser.zero_grad()
-               loss.backward()
-               optimiser.step()
+              optimiser.zero_grad()
+              loss.backward()
+              optimiser.step()
+              print(f"Epoch {epoch} complete with loss {loss}")
 
-               print(f"Epoch {epoch} complete with loss {loss}")
+    with open("model_save.pt", "wb") as file:
+        save(network.state_dict(),file)
