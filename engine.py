@@ -66,7 +66,6 @@ class NeuralNetwork(nn.Module):
         return self.model(x)
 
 network = NeuralNetwork().to(device)
-loss_fn = nn.CrossEntropyLoss()
 optimiser = optim.Adam(network.parameters(),lr=1e-4)
 
 for epoch in range(8):
@@ -75,7 +74,7 @@ for epoch in range(8):
           X = X.to(device)
           y = y.to(device)
           prediction = network(X)
-          loss = loss_fn(prediction, y)
+          loss = nn.CrossEntropyLoss(prediction, y)
 
                #backprop
           optimiser.zero_grad()
