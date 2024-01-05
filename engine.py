@@ -23,10 +23,10 @@ class ChessDataset(Dataset):
     def __len__(self):
         return 200_000
     
-    def __getitem__(self):
+    def __getitem__(self,idx):
         noOfGames = 1248430
-        index = random.randint(0,noOfGames)
-        randGame = self.games[index]
+        idx = random.randint(0,noOfGames)
+        randGame = self.games[idx]
         randGameIndex = random.randint(0,len(randGame)-1)
         randGameMoves = randGame[:randGameIndex]
         if len(randGameMoves) % 2 == 0:
