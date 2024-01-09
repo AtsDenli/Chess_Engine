@@ -19,10 +19,10 @@ class ChessDataset(Dataset):
     def __init__(self,games):
         super(ChessDataset,self).__init__()
         self.games = games
-        
+
     def __len__(self):
-        return 200_000
-    
+        return 200000
+
     def __getitem__(self,idx):
         noOfGames = 1248430
         idx = random.randint(0,noOfGames)
@@ -35,7 +35,7 @@ class ChessDataset(Dataset):
             board = Text2Stack(PNG2Text(randGameMoves))
         nextMove = moveMatrix(board, randGame[randGameIndex+1])
         return board, nextMove
-    
+
 data_train = ChessDataset(chessGames)
 data_train_loader = DataLoader(data_train, batch_size=32, shuffle=True, drop_last=True)
 
