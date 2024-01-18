@@ -7,14 +7,13 @@ board = chess.Board()
 def PNG2Text(game, position):
     moves = []
     re.sub("[i-z]", '', game)
-    for move in game.split("  "):
+    re.sub("[1-9][0-9].", '', game)
+    re.sub("[1-9]. ", '', game)
+    for move in game.split(' '):
         if len(moves) > position:
             break
-        moves.append(move.split(' '))
-    for move in moves:
-        board.push_san(move[0])
-        if move[1]:
-            board.push_san(move[1])
+        moves.append(move)
+        board.push_san(move)
     return board
 
 def moveMatrix(board, move):
