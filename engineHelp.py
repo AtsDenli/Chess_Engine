@@ -6,6 +6,7 @@ board = chess.Board()
 
 def PNG2Text(game, position):
     moves = []
+    print(game)
     for move in game.split(' '):
         if len(moves) > position:
             break

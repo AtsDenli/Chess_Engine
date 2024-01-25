@@ -2,11 +2,10 @@ import csv
 import re
 
 def strip(png):
-    pattern1 = re.compile("[1234567890][.]")
-    pattern2 = re.compile("[1234567890][1234567890][.]")
+    pattern1 = re.compile("[ ][1234567890][.]")
+    pattern2 = re.compile("[ ][1234567890][1234567890][.]")
     png = re.sub(pattern2,'',png)
     png = re.sub(pattern1,'',png)
-    print(png)
     return png
 
 
