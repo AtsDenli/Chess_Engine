@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.optim as optim
 import random
 import csv
-from engineHelp import Text2Stack, PNG2Text, moveMatrix
+from engineHelp import Text2Stack, PNG2Text, moveMatrix, splitArr
 
 chessGames = []
 with open("chess_games_edit.csv", "r") as file:
@@ -27,6 +27,7 @@ class ChessDataset(Dataset):
         noOfGames = 1248430
         idx = random.randint(0,noOfGames)
         randGame = self.games[idx]
+        randGame = randGame.split(' ')[1:]
         randGameIndex = random.randint(0,len(randGame)-1)
         randGameMoves = randGame[:randGameIndex]
         if len(randGameMoves) % 2 == 0:
