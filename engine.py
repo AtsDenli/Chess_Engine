@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.optim as optim
 import random
 import csv
-from engineHelp import Text2Stack, PNG2Text, moveMatrix, splitArr
+from engineHelp import Text2Stack, PNG2Text, moveMatrix
 
 chessGames = []
 with open("chess_games_edit.csv", "r") as file:

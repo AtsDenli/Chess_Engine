@@ -41,6 +41,7 @@ def moveMatrix(board, move):
 
 def Text2Stack(board,flip=1):
     arraySize = (8,8)
+    board = make_2D(board)
     pawn = np.zeros(arraySize, dtype=int)
     knight = np.zeros(arraySize, dtype=int)
     bishop = np.zeros(arraySize, dtype=int)
@@ -64,3 +65,18 @@ def Text2Stack(board,flip=1):
 
     return np.stack((pawn,knight,bishop,rook,queen,king)) if flip == 1 else np.stack((flip(pawn), flip(knight), flip(bishop), flip(rook), flip(queen), flip(king)))
 
+def make_2D(board): 
+    pgn = board.epd()
+    newBoard = []  #Final board
+    pieces = pgn.split(" ", 1)[0]
+    rows = pieces.split("/")
+    for row in rows:
+        tmp = []  #This is the row I make
+        for thing in row:
+            if thing.isdigit():
+                for i in range(0, int(thing)):
+                    tmp.append('.')
+            else:
+                tmp.append(thing)
+        newBoard.append(tmp)
+    return newBoard
