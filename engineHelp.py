@@ -39,7 +39,7 @@ def moveMatrix(board, move):
     outputBoard = stack2[k]
     return (initialBoard, outputBoard)
 
-def Text2Stack(board,flip=1):
+def Text2Stack(board,turn=1):
     arraySize = (8,8)
     board = make_2D(board)
     pawn = np.zeros(arraySize, dtype=int)
@@ -63,7 +63,7 @@ def Text2Stack(board,flip=1):
             elif board[i][j].lower() == 'k':
                 king[i][j] = 1 if board[i][j] == 'K' else -1
 
-    return np.stack((pawn,knight,bishop,rook,queen,king)) if flip == 1 else np.stack((flip(pawn), flip(knight), flip(bishop), flip(rook), flip(queen), flip(king)))
+    return np.stack((pawn,knight,bishop,rook,queen,king)) if turn == 1 else np.stack((np.flip(pawn), np.flip(knight), np.flip(bishop), np.flip(rook), np.flip(queen), np.flip(king)))
 
 def make_2D(board): 
     pgn = board.epd()
