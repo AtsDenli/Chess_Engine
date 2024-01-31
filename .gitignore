@@ -1,1 +1,3 @@
 chess_games_edit.csv
+.gitignore
+__pycache__
