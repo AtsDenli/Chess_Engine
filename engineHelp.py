@@ -41,6 +41,8 @@ def moveMatrix(board, move):
 
 def Text2Stack(board,turn=1):
     arraySize = (8,8)
+    print(board)
+    print(45)
     board = make_2D(board)
     pawn = np.zeros(arraySize, dtype=int)
     knight = np.zeros(arraySize, dtype=int)

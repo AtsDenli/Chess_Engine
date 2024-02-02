@@ -31,9 +31,9 @@ class ChessDataset(Dataset):
         randGameIndex = random.randint(0,len(randGame)-1)
         randGameMoves = randGame[:randGameIndex]
         if len(randGameMoves) % 2 == 0:
-            board = Text2Stack(PNG2Text(randGameMoves, randGameIndex),-1)
+            board = PNG2Text(randGameMoves, randGameIndex)
         else:
-            board = Text2Stack(PNG2Text(randGameMoves, randGameIndex))
+            board = PNG2Text(randGameMoves, randGameIndex)
         nextMove = moveMatrix(board, randGame[randGameIndex+1])
         return board, nextMove
 
@@ -77,7 +77,7 @@ for epoch in range(8):
           prediction = network(X)
           loss = nn.CrossEntropyLoss(prediction, y)
 
-               #backprop
+          #backprop
           optimiser.zero_grad()
           loss.backward()
           optimiser.step()
