@@ -16,6 +16,12 @@ def PNG2Text(game, position):
 def moveMatrix(board, move):
     piece = ''
     for char in move:
+        if move == "O-O" or move == "O-O-O":
+            initialBoard = stack[5]
+            board.push_san(move)
+            stack2 = Text2Stack(board)
+            outputBoard = stack2[k]
+            return (initialBoard,outputBoard)
         if char != ' ' and char == char.upper():
             piece = char
     stack = Text2Stack(board)
@@ -41,8 +47,6 @@ def moveMatrix(board, move):
 
 def Text2Stack(board,turn=1):
     arraySize = (8,8)
-    print(board)
-    print(45)
     board = make_2D(board)
     pawn = np.zeros(arraySize, dtype=int)
     knight = np.zeros(arraySize, dtype=int)
