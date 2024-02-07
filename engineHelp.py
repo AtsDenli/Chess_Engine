@@ -4,7 +4,9 @@ import chess
 
 board = chess.Board()
 
-def PNG2Text(game, position):
+def PNG2Text(game, position, new=False):
+    if new == True:
+        board.reset()
     moves = []
     for move in game:
         if len(moves) > position:
@@ -15,18 +17,16 @@ def PNG2Text(game, position):
 
 def moveMatrix(board, move):
     piece = ''
+    k = 0
     for char in move:
         if move == "O-O" or move == "O-O-O":
-            initialBoard = stack[5]
-            board.push_san(move)
-            stack2 = Text2Stack(board)
-            outputBoard = stack2[k]
-            return (initialBoard,outputBoard)
-        if char != ' ' and char == char.upper():
+            k = 5
+        elif char != ' ' and char == char.upper():
             piece = char
     stack = Text2Stack(board)
-    k = 0
-    if piece == '':
+    if k == 5:
+        pass
+    elif piece == '':
         k = 0
     elif piece == 'N':
         k = 1

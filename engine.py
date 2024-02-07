@@ -30,10 +30,7 @@ class ChessDataset(Dataset):
         randGame = randGame.split(' ')[1:]
         randGameIndex = random.randint(0,len(randGame)-1)
         randGameMoves = randGame[:randGameIndex]
-        if len(randGameMoves) % 2 == 0:
-            board = PNG2Text(randGameMoves, randGameIndex)
-        else:
-            board = PNG2Text(randGameMoves, randGameIndex)
+        board = PNG2Text(randGameMoves, randGameIndex-1, True)
         nextMove = moveMatrix(board, randGame[randGameIndex])
         return board, nextMove
 
