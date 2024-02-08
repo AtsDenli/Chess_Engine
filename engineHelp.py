@@ -49,12 +49,12 @@ def moveMatrix(board, move, turn):
 def Text2Stack(board,turn=1):
     arraySize = (8,8)
     board = make_2D(board)
-    pawn = np.zeros(arraySize, dtype=int)
-    knight = np.zeros(arraySize, dtype=int)
-    bishop = np.zeros(arraySize, dtype=int)
-    rook = np.zeros(arraySize, dtype=int)
-    queen = np.zeros(arraySize, dtype=int)
-    king = np.zeros(arraySize, dtype=int)
+    pawn = np.zeros(arraySize, dtype=np.float32)
+    knight = np.zeros(arraySize, dtype=np.float32)
+    bishop = np.zeros(arraySize, dtype=np.float32)
+    rook = np.zeros(arraySize, dtype=np.float32)
+    queen = np.zeros(arraySize, dtype=np.float32)
+    king = np.zeros(arraySize, dtype=np.float32)
     for i in range(7):
         for j in range(7):
             if board[i][j].lower() == 'p':
