@@ -70,11 +70,10 @@ optimiser = optim.Adam(network.parameters(),lr=1e-4)
 
 for epoch in range(8):
      for group in data_train_loader:
-          X, y = group[0]
+          X = group[0]
           X = X.to(device)
-          y = y.to(device)
           prediction = network(X)
-          loss = nn.CrossEntropyLoss(prediction, y)
+          loss = nn.CrossEntropyLoss(prediction, X)
 
           #backprop
           optimiser.zero_grad()
