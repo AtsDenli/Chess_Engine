@@ -28,10 +28,12 @@ class ChessDataset(Dataset):
         idx = random.randint(0,noOfGames)
         randGame = self.games[idx]
         randGame = randGame.split(' ')[1:]
-        randGameIndex = random.randint(0,len(randGame)-1)
+        randGameIndex = random.randint(0,len(randGame)-4)
         randGameMoves = randGame[:randGameIndex]
+        # 1 if white's turn
+        turn = 1 if randGameIndex % 2 == 1 else 0
         board = PNG2Text(randGameMoves, randGameIndex-1, True)
-        nextMove = moveMatrix(board, randGame[randGameIndex])
+        nextMove = moveMatrix(board, randGame[randGameIndex], turn)
         return board, nextMove
 
 data_train = ChessDataset(chessGames)
