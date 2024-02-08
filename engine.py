@@ -62,7 +62,6 @@ class NeuralNetwork(nn.Module):
              nn.Flatten()
         )
 
-
     def forward(self, x):
         return self.model(x)
 
@@ -71,7 +70,7 @@ optimiser = optim.Adam(network.parameters(),lr=1e-4)
 
 for epoch in range(8):
      for group in data_train_loader:
-          X, y = group
+          X, y = group[0]
           X = X.to(device)
           y = y.to(device)
           prediction = network(X)
