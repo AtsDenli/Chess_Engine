@@ -34,6 +34,7 @@ class ChessDataset(Dataset):
         turn = 1 if randGameIndex % 2 == 1 else 0
         board = PNG2Text(randGameMoves, randGameIndex-1, True)
         nextMove = moveMatrix(board, randGame[randGameIndex], turn)
+        board = Text2Stack(board, turn)
         return board, nextMove
 
 data_train = ChessDataset(chessGames)
