@@ -72,8 +72,8 @@ for epoch in range(8):
      for group in data_train_loader:
           X = group[0]
           X = X.to(device)
-          prediction = network(X)
-          loss = nn.CrossEntropyLoss(prediction, X)
+          loss = nn.CrossEntropyLoss()
+          loss(X, network(X))
 
           #backprop
           optimiser.zero_grad()
