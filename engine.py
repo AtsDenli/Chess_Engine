@@ -45,6 +45,7 @@ class NeuralNetwork(nn.Module):
         super().__init__()
         self.model = nn.Sequential(
              nn.Conv2d(6, 200, 3, 1, 1),
+             nn.SELU(),
              nn.Conv2d(200,200,3,1,1),
              nn.SELU(),
              nn.Conv2d(200,200,3,1,1),
@@ -70,10 +71,11 @@ optimiser = optim.Adam(network.parameters(),lr=1e-4)
 
 for epoch in range(8):
      for group in data_train_loader:
-          X = group[0]
-          X = X.to(device)
+          X = group[0].to(device)
+          value = group[1][1]
+          prediction = network(X)
           loss = nn.CrossEntropyLoss()
-          loss(X, network(X))
+          loss  = loss(value,prediction)
 
           #backprop
           optimiser.zero_grad()
