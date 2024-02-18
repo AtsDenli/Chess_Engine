@@ -17,12 +17,12 @@ def PNG2Text(game, position, new=False):
 def moveMatrix(board, move, turn):
     piece = ''
     k = 0
+    numbers = ['0','1','2','3','4','5','6','7','8','9']
     for char in move:
         if move == "O-O" or move == "O-O-O":
             k = 5
-        elif char != ' ' and char == char.upper():
+        elif char != ' ' and char == char.upper() and char not in numbers:
             piece = char
-    stack = Text2Stack(board, turn)
     if k == 5:
         pass
     elif piece == '':
@@ -37,13 +37,11 @@ def moveMatrix(board, move, turn):
         k = 4
     elif piece == 'K':
         k = 5
-
-    initialBoard = stack[k]
     turn = 0 if turn == 1 else 0
     board.push_san(move)
     stack2 = Text2Stack(board, turn)
     outputBoard = stack2[k]
-    return (initialBoard, outputBoard)
+    return (outputBoard, k)
 
 def Text2Stack(board,turn=1):
     arraySize = (8,8)
@@ -70,7 +68,6 @@ def Text2Stack(board,turn=1):
                 king[i][j] = 1 if board[i][j] == 'K' else -1
 
     return np.stack((pawn,knight,bishop,rook,queen,king)) if turn == 1 else np.stack((np.flip(pawn), np.flip(knight), np.flip(bishop), np.flip(rook), np.flip(queen), np.flip(king)))
-
 #This function is from StackOverflow
 def make_2D(board): 
     pgn = board.epd()
@@ -87,3 +84,18 @@ def make_2D(board):
                 tmp.append(thing)
         newBoard.append(tmp)
     return newBoard
+
+def GetNewBoard(board,stack,k):
+    if k == 0:
+        board[0][0] = stack
+    elif k == 1:
+        board[0][1] = stack
+    elif k == 2:
+        board[0][2] = stack
+    elif k == 3:
+        board[0][3] = stack
+    elif k == 4:
+        board[0][4] = stack
+    elif k == 5:
+        board[0][5] = stack
+    return board
