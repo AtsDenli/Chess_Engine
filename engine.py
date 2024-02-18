@@ -84,11 +84,11 @@ for epoch in range(24000000):
           X = group[0].to(device)
           value = GetNewBoard(X, group[1][0], group[1][1])
           prediction = network(X)
-          loss = nn.CrossEntropyLoss()
-          #print(value[0].shape)
-          #print(value[0])
-          #print(prediction[0].shape)
-          loss  = loss(value[0],prediction[0])
+          metric_from = nn.CrossEntropyLoss()
+          metric_to = nn.CrossEntropyLoss()
+          loss_from = metric_from(value[0][:,0,:], prediction[0][:,0,:])
+          loss_to = metric_to(value[0][:,1,:], prediction[0][:,1,:])
+          loss = loss_from + loss_to
 
           #backprop
           optimiser.zero_grad()
