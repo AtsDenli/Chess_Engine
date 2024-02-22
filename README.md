@@ -9,4 +9,4 @@ I used a lot of ideas from https://www.youtube.com/watch?v=aOwvRvTPQrs&t=524s. I
 
 I also used some ideas and some code from https://www.youtube.com/watch?v=mozBidd58VQ. I would recommend it to anyone who is new to Pytorch programming.
 
-This is still in progress, although the model can train, I haven't built the functionality to input and output games yet. This will be coming soon. To train the model yourself, simply download the data from the above link, run chessGamePrep.py on this data, and then add engine.py and engineHelp.py into the same directory, and run engine.py 
+This is still in progress, although the model can train, I haven't built the functionality to input and output moves yet. This will be coming soon. To train the model yourself, simply download the data from the above link, run chessGamePrep.py on this data, and then add engine.py and engineHelp.py into the same directory, and run engine.py 
