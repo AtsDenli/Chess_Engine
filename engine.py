@@ -25,7 +25,7 @@ class ChessDataset(Dataset):
 
     def __getitem__(self,idx):
         noOfGames = 1248430
-        idx = random.randint(0,noOfGames)
+        idx = random.randint(0,noOfGames-4)
         randGame = self.games[idx]
         randGame = randGame.split(' ')[1:]
         randGameIndex = random.randint(0,len(randGame)-4)
@@ -79,22 +79,21 @@ class NeuralNetwork(nn.Module):
 network = NeuralNetwork().to(device)
 optimiser = optim.Adam(network.parameters(),lr=1e-4)
 
-for epoch in range(24000000):
-     for group in data_train_loader:
-          X = group[0].to(device)
-          value = GetNewBoard(X, group[1][0], group[1][1])
-          prediction = network(X)
-          metric_from = nn.CrossEntropyLoss()
-          metric_to = nn.CrossEntropyLoss()
-          loss_from = metric_from(value[0][:,0,:], prediction[0][:,0,:])
-          loss_to = metric_to(value[0][:,1,:], prediction[0][:,1,:])
-          loss = loss_from + loss_to
-
+for epoch in range(1):
+    for group in data_train_loader:
+         X = group[0].to(device)
+         value = GetNewBoard(X, group[1][0], group[1][1])[0]
+         prediction = network(X)[0]
+         metric_from = nn.CrossEntropyLoss()
+         metric_to = nn.CrossEntropyLoss()
+         loss_from = metric_from(value[:,0,:], prediction[:,0,:])
+         loss_to = metric_to(value[:,1,:], prediction[:,1,:])
+         loss = loss_from + loss_to
           #backprop
-          optimiser.zero_grad()
-          loss.backward()
-          optimiser.step()
-          print(f"Epoch {epoch} complete with loss {loss}")
+         optimiser.zero_grad()
+         loss.backward()
+         optimiser.step()
+    print(f"Epoch {epoch} complete with loss {loss}")
 
 with open("model_save.pt", "wb") as file:
     save(network.state_dict(),file)

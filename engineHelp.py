@@ -1,18 +1,18 @@
 import numpy as np
 import chess
 
-board = chess.Board()
+localBoard = chess.Board()
 
 def PNG2Text(game, position, new=False):
     if new == True:
-        board.reset()
+        localBoard.reset()
     moves = []
     for move in game:
         if len(moves) > position:
             break
         moves.append(move)
-        board.push_san(move)
-    return board
+        localBoard.push_san(move)
+    return localBoard
 
 def moveMatrix(board, move, turn):
     piece = ''
