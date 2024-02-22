@@ -79,7 +79,7 @@ class NeuralNetwork(nn.Module):
 network = NeuralNetwork().to(device)
 optimiser = optim.Adam(network.parameters(),lr=1e-4)
 
-for epoch in range(1):
+for epoch in range(125):
     for group in data_train_loader:
          X = group[0].to(device)
          value = GetNewBoard(X, group[1][0], group[1][1])[0]
