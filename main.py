@@ -14,16 +14,28 @@ while colour != "black" or colour != "white":
     colour = input("Would you like to play as black or white?")
 
 def pickMove():
-    Text2Stack(PNG2Text(board))
+    move = ""
+    while move not in list(board.legal_moves):
+        move = Text2Stack(PNG2Text(board))
+
+def mateInOne(board):
+    board = board.copy()
+    moves = list(board.legal_moves)
+    for move in moves:
+        board.push_uci(move)
+        if board.is_checkmate():
+            move = board.pop()
+            return move
+        board.pop()
 
 movecount = 0
 while not board.is_checkmate():
     if colour == "white":
-        whiteMove = input("please input a move in standard algebraic notation")
+        whiteMove = input("please input a move in UCI notation")
         while True:
             try:
-                board.push_san(whiteMove)
+                board.push_uci(whiteMove)
                 break
             except Exception:
                 print("Please input valid standard algebraic notation")
-    blackMove = pickMove()   
+    blackMove =    
