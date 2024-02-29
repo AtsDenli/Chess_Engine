@@ -1,7 +1,7 @@
 import chess
 import engine
 import torch
-from engineHelp import Text2Stack, PNG2Text, moveMatrix, GetNewBoard
+from engineHelp import Text2Stack, PNG2Text, moveMatrix, GetNewBoard, StackToChange
 
 #THIS FILE IS STILL UNDER PROGRESS
 
@@ -16,7 +16,7 @@ while colour != "black" or colour != "white":
 def pickMove():
     move = ""
     while move not in list(board.legal_moves):
-        move = Text2Stack(PNG2Text(board))
+        move = Text2Stack(board)
 
 def mateInOne(board):
     board = board.copy()
@@ -27,6 +27,7 @@ def mateInOne(board):
             move = board.pop()
             return move
         board.pop()
+    return False
 
 movecount = 0
 while not board.is_checkmate():
@@ -37,5 +38,6 @@ while not board.is_checkmate():
                 board.push_uci(whiteMove)
                 break
             except Exception:
-                print("Please input valid standard algebraic notation")
-    blackMove =    
+                print("Please input valid UCI notation")
+    tmp = mateInOne(board)
+    blackMove = tmp if tmp else pickMove()
