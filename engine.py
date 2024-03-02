@@ -96,4 +96,4 @@ for epoch in range(125):
     print(f"Epoch {epoch} complete with loss {loss}")
 
 with open("model_save.pt", "wb") as file:
-    save(network.state_dict(),file)
+    save(network,file)
