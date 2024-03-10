@@ -99,3 +99,35 @@ def GetNewBoard(board,stack,k):
     elif k == 5:
         board[0][5] = stack
     return board
+
+def StackToChange(initial, after):
+    initStack = []
+    outStack = []
+    if initial[5] != after[5]:
+        initStack = initial[5]
+        outStack = after[5]
+    if initial[4] != after[4]:
+        initStack = initial[4]
+        outStack = after[4]
+    if initial[3] != after[3]:
+        initStack = initial[3]
+        outStack = after[3]
+    if initial[2] != after[2]:
+        initStack = initial[2]
+        outStack = after[2]
+    if initial[1] != after[1]:
+        initStack = initial[1]
+        outStack = after[1]
+
+    for i in range(8):
+        for j in range(8):
+            outStack[i][j] = rounder(initStack[i][j])
+            
+
+def rounder(num):
+    if num > 0.4:
+        return 1
+    elif num < -0.4:
+        return -1
+    else:
+        return 0
