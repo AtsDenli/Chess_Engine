@@ -1,13 +1,14 @@
 import chess
-import engine
 import torch
+import engine
 from engineHelp import Text2Stack, PNG2Text, moveMatrix, GetNewBoard, StackToChange
 
 #THIS FILE IS STILL UNDER PROGRESS
 
 board = chess.Board()
-model = engine.NeuralNetwork()
-model.torch.load("model_save.pt")
+setattr(engine, "NeuralNetwork", engine.NeuralNetwork)
+model = torch.load("model_save.pt")
+model.eval()
 
 colour = input("Would you like to play black or white?")
 while colour != "black" or colour != "white":
