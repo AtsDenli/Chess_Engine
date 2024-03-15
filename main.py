@@ -1,12 +1,12 @@
 import chess
 import torch
-import engine
+from engine import NeuralNetwork
 from engineHelp import Text2Stack, PNG2Text, moveMatrix, GetNewBoard, StackToChange
 
 #THIS FILE IS STILL UNDER PROGRESS
 
 board = chess.Board()
-setattr(engine, "NeuralNetwork", engine.NeuralNetwork)
+Network = NeuralNetwork
 model = torch.load("model_save.pt")
 model.eval()
 
