@@ -10,9 +10,9 @@ Network = NeuralNetwork
 model = torch.load("model_save.pt")
 model.eval()
 
-colour = input("Would you like to play black or white?")
-while colour != "black" or colour != "white":
-    colour = input("Would you like to play as black or white?")
+colour = input("Would you like to play black or white?\n")
+while colour != "black" and colour != "white":
+    colour = input("Would you like to play as black or white?\n")
 
 def pickMove():
     move = ""
@@ -23,7 +23,7 @@ def mateInOne(board):
     board = board.copy()
     moves = list(board.legal_moves)
     for move in moves:
-        board.push_uci(move)
+        board.push_uci(str(move))
         if board.is_checkmate():
             move = board.pop()
             return move
@@ -33,13 +33,7 @@ def mateInOne(board):
 movecount = 0
 while not board.is_checkmate():
     if colour == "white":
-        whiteMove = input("please input a move in UCI notation")
-        while True:
-            try:
-                board.push_uci(whiteMove)
-                break
-            except Exception:
-                print("Please input valid UCI notation")
+        whiteMove = input("please input a move in UCI notation\n")
         tmp = mateInOne(board)
         blackMove = tmp if tmp else pickMove()
         board.push_uci(blackMove)
@@ -49,10 +43,4 @@ while not board.is_checkmate():
         whiteMove = tmp if tmp else pickMove()
         board.push_uci(whiteMove)
         print(whiteMove)
-        blackMove = input("please input a move in UCI notation")
-        while True:
-            try:
-                board.push_uci(blackMove)
-                break
-            except Exception:
-                print("please input valid UCI notation")
+        blackMove = input("please input a move in UCI notation\n")
